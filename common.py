@@ -10,6 +10,8 @@ from sklearn.metrics import silhouette_samples, silhouette_score
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 
+import magic
+
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 logger = logging.getLogger(__file__)
 
@@ -58,3 +60,14 @@ def outFileName(**kargs):
         outname_report="%s_%s_report.csv"%(DEF_OUTNAME,kargs['et'])
         outname_json="%s_%s.json"%(DEF_OUTNAME,kargs['et'])
         return os.path.join(path,outname), os.path.join(path,outname_json), os.path.join(path,outname_report)
+
+
+#Per fare  il check del tipo di file e aprirlo in ogni caso
+def checkFileType(self,inFile,ext):
+        file_type=magic.from_file(inFile,mime=True)
+        if file_type=="application/gzip":
+            fi = gzip.open(inFile,'%st'%ext)
+        else:
+            fi = open(inFile,ext)
+        logger.info('FILE TYPE FOR %s IS %s',inFile,file_type)
+        return fi
