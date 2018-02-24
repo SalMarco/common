@@ -42,3 +42,19 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+def outFileName(**kargs):
+    if kargs['fo']:
+        ret=kargs['fo']
+        path=os.path.dirname(kargs["fo"])
+        name=os.path.basename(kargs["fo"])
+        sp=name.split(".")
+        outname_json=('%s.json'%sp[0])
+        outname_report=('%s_report.%s'%(sp[0],sp[1]))
+        return ret, os.path.join(path,outname_json), os.path.join(path,outname_report)
+    else:
+        path=os.path.dirname(kargs["fi"])
+        outname="%s_%s.csv"%(DEF_OUTNAME,kargs['et'])
+        outname_report="%s_%s_report.csv"%(DEF_OUTNAME,kargs['et'])
+        outname_json="%s_%s.json"%(DEF_OUTNAME,kargs['et'])
+        return os.path.join(path,outname), os.path.join(path,outname_json), os.path.join(path,outname_report)
