@@ -22,6 +22,16 @@ argparser.add_argument('-s','--makeSil',help=("Make na study in n_cluster using 
 argparser.add_argument('-o','--outFile',type=str,help=("File with the list of published urls and publish date [OPTIONAL, default= data/O2O_PUBLISHED_URLS.csv ]"),default='data/testKMeansResults.csv')
 
 
+########################
+###ARGPARSER CON UNO O L'ALTRO
+###############################
+argparser = argparse.ArgumentParser(add_help=True)
+argparser.add_argument('-o','--outFile',type=str,help=("Outfile"))
+group = argparser.add_mutually_exclusive_group(required=True)
+group.add_argument('-c','--csv',type=str,help=(" CSV with the data to be analized"))
+group.add_argument('-z','--zip',type=str,help=(".zip with the data to be analized"))
+
+
 def main():
     start=datetime.now()
     logger.info("START")
